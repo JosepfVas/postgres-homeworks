@@ -37,13 +37,10 @@ try:
     with conn:
         with conn.cursor() as cur:
             cur.executemany("INSERT INTO customers VALUES(%s, %s, %s)", customers_data)
-            cur.execute("SELECT * FROM customers")
 
             cur.executemany("INSERT INTO employees VALUES(%s, %s, %s, %s, %s, %s)", employees_data)
-            cur.execute("SELECT * FROM employees")
 
             cur.executemany("INSERT INTO orders VALUES(%s, %s, %s, %s, %s)", orders_data)
-            cur.execute("SELECT * FROM orders")
 
 except psycopg2.Error as e:
     print("Ошибка при вставке данных:", e)
