@@ -6,7 +6,7 @@ FROM orders
 JOIN customers USING(customer_id)
 JOIN employees USING(employee_id)
 JOIN shippers ON orders.ship_via = shippers.shipper_id
-WHERE employees.city = 'London' and customers.city = 'London'
+WHERE employees.city = 'London' AND customers.city = 'London' AND shippers.company_name = 'United Package'
 
 -- 2. Наименование продукта, количество товара (product_name и units_in_stock в табл products),
 -- имя поставщика и его телефон (contact_name и phone в табл suppliers) для таких продуктов,
@@ -25,6 +25,6 @@ WHERE NOT EXISTS (SELECT 1 FROM orders WHERE customers.customer_id=orders.custom
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
 -- Этот запрос написать именно с использованием подзапроса.
-SELECT product_name
+SELECT DISTINCT product_name
 FROM products
-WHERE product_id IN(SELECT product_id FROM order_details WHERE quantity = 10)
+WHERE product_id IN (SELECT  product_id FROM order_details WHERE quantity = 10)
